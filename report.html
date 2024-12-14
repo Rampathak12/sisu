@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Health Report Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .report-card {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-card h1 {
+            text-align: center;
+            color: #2f80ed;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .profile-section, .vaccines-section, .medical-history-section, .growth-data-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-section h2, .vaccines-section h2, .medical-history-section h2, .growth-data-section h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .profile-section p, .vaccines-section ul, .medical-history-section ul, .growth-data-section p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .vaccines-section ul, .medical-history-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .vaccines-section li, .medical-history-section li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .growth-data-section p {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .status {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .status.pending {
+            color: #ffc107;
+        }
+
+        .status.missed {
+            color: #dc3545;
+        }
+
+        .btn-print {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 25px;
+            background: #28a745;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-print:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="report-card">
+        <h1>Child Health Report Card</h1>
+        
+        <div class="profile-section">
+            <h2>Child Profile</h2>
+            <p><strong>Name:</strong> <span id="child-name-report">John Doe</span></p>
+            <p><strong>Age:</strong> <span id="child-age-report">5</span> years</p>
+        </div>
+
+        <div class="vaccines-section">
+            <h2>Vaccination Status</h2>
+            <ul id="vaccines-list-report">
+                <li><strong>Vaccine:</strong> Diphtheria <span class="status">Taken on 2023-10-15</span></li>
+                <li><strong>Vaccine:</strong> Measles <span class="status missed">Missed on 2023-11-10</span></li>
+                <li><strong>Vaccine:</strong> Hepatitis B <span class="status pending">Pending</span></li>
+            </ul>
+        </div>
+
+        <div class="medical-history-section">
+            <h2>Medical History</h2>
+            <ul id="medical-history-list-report">
+                <li><strong>Condition:</strong> Asthma <span class="status">Controlled</span></li>
+                <li><strong>Condition:</strong> Chickenpox <span class="status">Recovered</span></li>
+            </ul>
+        </div>
+
+        <div class="growth-data-section">
+            <h2>Growth Data</h2>
+            <p><strong>Height:</strong> <span id="child-height-report">110 cm</span></p>
+            <p><strong>Weight:</strong> <span id="child-weight-report">18 kg</span></p>
+        </div>
+
+        <button class="btn-print" onclick="window.print();">Print Report</button>
+    </div>
+</body>
+</html>

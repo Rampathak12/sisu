@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Health Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: url('download.jpg') no-repeat center center/cover, rgba(0, 0, 0, 0.7);
+            display: flex;
+            animation: backgroundGlow 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundGlow {
+            0% {
+                background: rgba(0, 0, 0, 0.7);
+                box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+            }
+            100% {
+                background: rgba(0, 0, 0, 0.8);
+                box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #6c786d;
+            padding: 20px;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-radius: 10px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 10px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background: #607361;
+            color: #fff;
+        }
+
+        .sidebar ul li a.active {
+            background-color: #758776;
+        }
+
+        .dashboard-container {
+            margin-left: 270px;
+            padding: 30px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: #4CAF50;
+            padding: 20px;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        header button {
+            background: #ff7f50;
+            border: none;
+            padding: 12px 25px;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: transform 0.3s, box-shadow 0.3s ease;
+        }
+
+        header button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(255, 120, 180, 0.4);
+        }
+
+        section {
+            margin: 25px 0;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        section h2 {
+            margin-bottom: 20px;
+            color: #2f80ed;
+            font-size: 1.7em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        form input, form select, form textarea, form button {
+            width: 100%;
+            margin: 12px 0;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s, transform 0.3s ease;
+        }
+
+        form input:focus, form select:focus, form textarea:focus {
+            box-shadow: 0 0 12px rgba(43, 134, 217, 0.6);
+            outline: none;
+        }
+
+        form button {
+            background: linear-gradient(45deg, #56ccf2, #2f80ed);
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s ease;
+        }
+
+        form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(43, 134, 217, 0.5);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 12px;
+            background: rgba(60, 84, 105, 0.8);
+            transition: background 0.3s ease;
+        }
+
+        th {
+            background: linear-gradient(45deg, #56ccf2, #2f80ed);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        td:hover {
+            background: rgba(43, 134, 217, 0.2);
+        }
+
+        .status {
+            font-weight: bold;
+            text-transform: capitalize;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #view-report-btn {
+            display: block;
+            margin: 15px auto;
+            background: linear-gradient(45deg, #56ccf2, #2f80ed);
+            border: none;
+            color: #fff;
+            padding: 16px 35px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: transform 0.3s, box-shadow 0.3s ease;
+        }
+
+        #view-report-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(43, 134, 217, 0.5);
+        }
+
+        #report-card {
+            display: none;
+            padding: 25px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        #report-card h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #56ccf2;
+        }
+
+        #report-card h2 {
+            color: #2f80ed;
+            margin-bottom: 12px;
+        }
+
+        #report-card p {
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
+        #report-card button {
+            display: block;
+            margin: 15px auto;
+            background: #2f80ed;
+            color: #fff;
+            border: none;
+            padding: 14px 35px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: transform 0.3s, box-shadow 0.3s ease;
+        }
+
+        #report-card button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(43, 134, 217, 0.5);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Child Health Dashboard</h2>
+        <ul>
+            <li><a href="#child-profile">Child Profile</a></li>
+            <li><a href="#growth-data">Growth Data</a></li>
+            <li><a href="#vaccines">Vaccines</a></li>
+            <li><a href="#medical-history">Medical History</a></li>
+            <li><a href="#report-link">Child Health Report</a></li>
+        </ul>
+    </div>
+
+    <div class="dashboard-container">
+        <header>
+            <h1>Child Health Monitoring Dashboard</h1>
+            <button id="logout-btn">Logout</button>
+        </header>
+
+        <section id="child-profile">
+            <h2>Child Profile</h2>
+            <form id="child-profile-form">
+                <input type="text" id="child-name" placeholder="Child's Name" required>
+                <input type="number" id="child-age" placeholder="Age" required>
+                <button type="submit">Save Profile</button>
+            </form>
+        </section>
+
+        <section id="vaccines">
+            <h2>Vaccines</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vaccine Name</th>
+                        <th>Date Administered</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="vaccine-list">
+                </tbody>
+            </table>
+            <button id="add-vaccine-btn">Add Vaccine</button>
+        </section>
+
+        <section id="medical-history">
+            <h2>Medical History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Condition</th>
+                        <th>Date Occurred</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="medical-history-list">
+                </tbody>
+            </table>
+            <button id="add-medical-history-btn">Add Medical Condition</button>
+        </section>
+
+        <section id="report-link">
+            <h2>Child Health Report</h2>
+            <p>Click below to view or generate the child's medical report.</p>
+            <button id="view-report-btn" onclick="generateReport()">View Report Card</button>
+        </section>
+
+        <section id="growth-data">
+            <h2>Growth Data</h2>
+            <form id="growth-data-form">
+                <input type="number" id="child-height" placeholder="Height (cm)" required>
+                <input type="number" id="child-weight" placeholder="Weight (kg)" required>
+                <button type="submit">Save Growth Data</button>
+            </form>
+        </section>
+    </div>
+
+    <div id="report-card">
+        <h1>Child Health Report Card</h1>
+        <h2>Child Profile</h2>
+        <p><strong>Name:</strong> <span id="child-name-report">John Doe</span></p>
+        <p><strong>Age:</strong> <span id="child-age-report">5</span></p>
+
+        <h2>Vaccination Status</h2>
+        <ul id="vaccines-list-report">
+            <!-- Vaccines will be inserted dynamically -->
+        </ul>
+
+        <h2>Medical History</h2>
+        <ul id="medical-history-list-report">
+            <!-- Medical history will be inserted dynamically -->
+        </ul>
+
+        <h2>Growth Data</h2>
+        <p><strong>Height:</strong> <span id="child-height-report">110 cm</span></p>
+        <p><strong>Weight:</strong> <span id="child-weight-report">18 kg</span></p>
+
+        <button onclick="window.print()">Print Report</button>
+    </div>
+
+    <script>
+        document.getElementById('child-profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const childName = document.getElementById('child-name').value;
+            const childAge = document.getElementById('child-age').value;
+
+            // Save data dynamically
+            document.getElementById('child-name-report').textContent = childName;
+            document.getElementById('child-age-report').textContent = childAge;
+
+            alert("Child profile saved!");
+        });
+
+        document.getElementById('growth-data-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const childHeight = document.getElementById('child-height').value;
+            const childWeight = document.getElementById('child-weight').value;
+
+            // Dynamically update growth data in the report
+            document.getElementById('child-height-report').textContent = `${childHeight} cm`;
+            document.getElementById('child-weight-report').textContent = `${childWeight} kg`;
+
+            alert("Growth data saved!");
+        });
+
+        document.getElementById('add-vaccine-btn').addEventListener('click', function() {
+            const vaccineName = prompt("Enter Vaccine Name:");
+            const vaccineDate = prompt("Enter Date Administered:");
+            const vaccineStatus = prompt("Enter Vaccine Status (Taken/Not Taken):");
+
+            const vaccineList = document.getElementById('vaccine-list');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td>${vaccineName}</td><td>${vaccineDate}</td><td class="status">${vaccineStatus}</td>`;
+            vaccineList.appendChild(newRow);
+        });
+
+        document.getElementById('add-medical-history-btn').addEventListener('click', function() {
+            const condition = prompt("Enter Medical Condition:");
+            const dateOccurred = prompt("Enter Date Occurred:");
+            const status = prompt("Enter Condition Status (Treated/Ongoing/Untreated):");
+
+            const historyList = document.getElementById('medical-history-list');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td>${condition}</td><td>${dateOccurred}</td><td class="medical-history-status">${status}</td>`;
+            historyList.appendChild(newRow);
+        });
+
+        // Report card visibility toggle
+        function generateReport() {
+            const reportCard = document.getElementById('report-card');
+            reportCard.style.display = reportCard.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function checkHealthStatus() {
+            const healthStatus = "danger"; // Placeholder for checking health status
+
+            if (healthStatus === "danger") {
+                alert("The baby's health is in danger! Please seek immediate medical attention.");
+            }
+        }
+
+        // Call this function to check health status when necessary
+        checkHealthStatus();
+    </script>
+</body>
+</html>

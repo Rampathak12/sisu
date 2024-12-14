@@ -1,0 +1,99 @@
+/* Dashboard and Report Styles */
+
+/* Body and general styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.dashboard-container, .report-container {
+    width: 80%;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:focus {
+    outline: none;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+    border-color: #4CAF50;
+}
+
+.form-container {
+    width: 300px;
+    margin: 0 auto;
+}
+
+/* Section styling */
+h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.section {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.report-container .button-container {
+    text-align: center;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+    .dashboard-container, .report-container {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+    }
+}
